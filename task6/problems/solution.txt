@@ -1,0 +1,51 @@
+class Solution:
+    def sampleStats(self, count: List[int]) -> List[float]:
+        def get_minimum():
+            for i in range(len(count)):
+                if count[i] > 0:
+                    return i
+                    break
+
+        def get_maximum():
+            for i in reversed(range(len(count))):
+                if count[i] > 0:
+                    return i
+                    break
+        def get_mode():
+            return count.index(max(count))  
+        def get_mean():
+            length=0
+            summ = []
+            for i, e in enumerate(count):
+                summ.append(i*e)
+                length+=e
+            return sum(summ)/length
+        def get_median():
+            mid = sum(count) /2
+            median = 0
+            # odd
+            if sum(count)%2!=0:
+                total = 0
+                for i in range(len(count)):
+                    total += count[i]
+                    if total >= mid:
+                        median = i
+                        return median
+                    
+
+        #     even
+            else:
+                total = 0
+                for i in range(len(count)):
+                    total += count[i]
+                    if total == mid:
+                        for k in range(i+1,len(count)):
+                            if count[k] >0:
+                                num = k
+                                median = (i +k)/2
+                                return median
+
+                    elif total > mid:
+                        return i
+
+        return [get_minimum(), get_maximum(),get_mean(),get_median(),get_mode()]            
